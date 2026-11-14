@@ -95,11 +95,16 @@ a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible,s
 </div>
 
 <div style="flex: 1 1 520px; min-width: 0; background: #14130F; border: 1px solid #2E2B25; border-top: 3px solid #C9A45C; border-radius: 4px; padding: clamp(24px, 3.5vw, 48px); box-sizing: border-box">
-<form id="estimateForm" style="display: flex; flex-direction: column; gap: 22px">
+<form id="estimateForm" action="https://formsubmit.co/ajconstruction23inc@gmail.com" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 22px">
 <div>
 <h2 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 800; font-family: 'Big Shoulders', 'Archivo', sans-serif"><br></h2>
 <p style="margin: 8px 0 0; color: #A8A196; font-size: 15px">*All fields except photos are required.</p>
 </div>
+<input type="hidden" name="_subject" value="New estimate request from the website">
+<input type="hidden" name="_template" value="table">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" id="formNext" value="">
+<input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="display: none">
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px">
 <label for="name" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Full name<input id="name" name="name" type="text" autocomplete="name" required style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px"></label>
 <label for="phone" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Phone<input id="phone" name="phone" type="tel" autocomplete="tel" required style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px"></label>
@@ -108,7 +113,7 @@ a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible,s
 </div>
 <label for="service" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Service<select id="service" name="service" required="" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px"><option>Choose a service</option><option>Concrete work</option><option>Deck construction</option><option>Drywall and painting</option><option>Finish carpentry</option><option>Basement finishing and remodeling</option><option>Window and door installation</option><option>Something else</option></select></label>
 <label for="details" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Project details<textarea id="details" name="details" rows="5" required="" placeholder="Size of the area, materials you like, when you'd like to start" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px; min-height: 140px; resize: vertical; line-height: 1.5"></textarea></label>
-<label for="photos" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Photos (optional)<input id="photos" name="photos" type="file" accept="image/*" multiple="" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px; padding: 13px 14px; color: #A8A196"></label>
+<label for="photos" style="display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 600">Photos (optional, up to 10 MB total)<input id="photos" name="attachment" type="file" accept="image/*" multiple="" style="width: 100%; box-sizing: border-box; min-height: 52px; padding: 12px 14px; background: #0D0C0A; border: 1px solid #4A453C; border-radius: 3px; color: #EEE9E0; font: inherit; font-size: 16px; padding: 13px 14px; color: #A8A196"></label>
 <fieldset style="margin: 0; padding: 0; border: 0; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center">
 <legend style="font-size: 15px; font-weight: 600; margin-bottom: 10px; padding: 0">Best way to reach you</legend>
 <label style="display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px"><input type="radio" name="reach" value="text" checked="" style="width: 20px; height: 20px; accent-color: #C9A45C">Text</label>
@@ -119,8 +124,8 @@ a:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible,s
 </form>
 <div id="formSent" hidden role="status" style="display: flex; flex-direction: column; gap: 16px; padding: 24px 0">
 <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#C9A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>
-<h2 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 800; font-family: 'Big Shoulders', 'Archivo', sans-serif">Almost done</h2>
-<p style="margin: 0; color: #CFC9BE; font-size: 18px; max-width: 28em">Your email app should open with your request filled in. Press send to deliver it to our team. For a faster reply, call or text (774) 615-9603.</p>
+<h2 style="margin: 0; font-size: 36px; line-height: 1.1; font-weight: 800; font-family: 'Big Shoulders', 'Archivo', sans-serif">Request sent</h2>
+<p style="margin: 0; color: #CFC9BE; font-size: 18px; max-width: 28em">Thank you. We will review your project and contact you to schedule a site visit. For a faster reply, call or text (774) 615-9603.</p>
 <button type="button" id="formReset" style="align-self: flex-start; min-height: 48px; padding: 0 22px; background: transparent; color: #EEE9E0; border: 1.5px solid #5A5448; border-radius: 3px; font: inherit; font-weight: 600; font-size: 16px; cursor: pointer">Send another request</button>
 </div>
 </div>

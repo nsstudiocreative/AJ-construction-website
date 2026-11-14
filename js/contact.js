@@ -1,49 +1,52 @@
 (function () {
-  // Estimate form: opens the visitor's email app with the request filled in,
-  // addressed to AJ Construction. Replace with a form service to receive
-  // submissions (and photo uploads) without the visitor's email app.
-  var TO = 'ajconstruction23inc@gmail.com';
+  // Estimate form: posts straight to FormSubmit, which emails the request
+  // (with any attached photos) to ajconstruction23inc@gmail.com, then sends
+  // the visitor back here with ?sent=1 to show the confirmation.
   var form = document.getElementById('estimateForm');
   var sent = document.getElementById('formSent');
   var reset = document.getElementById('formReset');
+  var next = document.getElementById('formNext');
   if (!form) return;
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = form.elements;
-    var service = f.service.value;
-    if (service === 'Choose a service') {
-      f.service.setCustomValidity('Choose a service.');
-      f.service.reportValidity();
-      return;
-    }
-    var reach = (form.querySelector('input[name="reach"]:checked') || {}).value || 'text';
-    var body = [
-      'Name: ' + f.name.value,
-      'Phone: ' + f.phone.value,
-      'Email: ' + f.email.value,
-      'Town or ZIP code: ' + f.town.value,
-      'Service: ' + service,
-      'Best way to reach me: ' + reach,
-      '',
-      'Project details:',
-      f.details.value,
-      '',
-      f.photos && f.photos.files.length ? 'I have photos of the project and will attach them to this email.' : ''
-    ].join('\n');
-    var subject = 'Estimate request: ' + service + ' (' + f.town.value + ')';
-    window.location.href = 'mailto:' + TO + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  var here = window.location.href.split('#')[0].split('?')[0];
+  if (next) next.value = here + '?sent=1';
+
+  if (/[?&]sent=1/.test(window.location.search)) {
     form.hidden = true;
     if (sent) sent.hidden = false;
+  }
+
+  var service = form.elements.service;
+  var photos = form.elements.attachment;
+
+  form.addEventListener('submit', function (e) {
+    if (service.value === 'Choose a service') {
+      e.preventDefault();
+      service.setCustomValidity('Choose a service.');
+      service.reportValidity();
+      return;
+    }
+    if (photos && photos.files.length) {
+      var total = 0;
+      for (var i = 0; i < photos.files.length; i++) total += photos.files[i].size;
+      if (total > 10 * 1024 * 1024) {
+        e.preventDefault();
+        photos.setCustomValidity('Photos must be 10 MB or less in total.');
+        photos.reportValidity();
+        return;
+      }
+    }
   });
 
-  form.elements.service.addEventListener('change', function () { this.setCustomValidity(''); });
+  service.addEventListener('change', function () { this.setCustomValidity(''); });
+  if (photos) photos.addEventListener('change', function () { this.setCustomValidity(''); });
 
   if (reset) {
     reset.addEventListener('click', function () {
       form.reset();
       form.hidden = false;
       if (sent) sent.hidden = true;
+      if (window.history && window.history.replaceState) window.history.replaceState(null, '', here);
     });
   }
 })();
